@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#07111f">
+
+  <title>WHO IS LYING? — Detective Investigation System</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+<div id="particles" class="particles"></div>
+<div class="scanlines"></div>
+<div id="toastHost" class="toast-host"></div>
+
+<div id="app">
+
+  <!-- LANDING -->
+  <section id="landing" class="screen active">
+
+    <div class="landing-grid">
+
+      <div class="terminal-chip">
+        <span class="status-dot"></span>
+        TRUTHFINDER // SYSTEM ONLINE
+      </div>
+
+      <div class="hero">
+
+        <div class="eyebrow">
+          CLASSIFIED INVESTIGATION NETWORK
+        </div>
+
+        <h1>
+          WHO IS <span>LYING?</span>
+        </h1>
+
+        <p class="hero-sub">
+          Five statements.<br>
+          <strong>Four truths. One lie.</strong><br>
+          Find it.
+        </p>
+
+        <p class="hero-copy">
+          Interrogate evidence. Challenge bots. Search the archive.
+          Follow contradictions. Make the accusation only when you are ready.
+        </p>
+
+        <div class="hero-actions">
+
+          <button
+            class="btn btn-primary btn-xl"
+            data-action="start-story">
+            START INVESTIGATION <span>→</span>
+          </button>
+
+          <button
+            class="btn btn-ghost"
+            data-action="daily">
+            DAILY CASE
+          </button>
+
+          <button
+            class="btn btn-ghost"
+            data-action="help">
+            HOW TO PLAY
+          </button>
+
+        </div>
+
+      </div>
+
+      <div class="landing-side glass">
+
+        <div class="terminal-line">
+          CASE_ENGINE <span>v4.7</span>
+        </div>
+
+        <div class="terminal-line">
+          EVIDENCE <span>READY</span>
+        </div>
+
+        <div class="terminal-line">
+          BOT_NETWORK <span>8 ONLINE</span>
+        </div>
+
+        <div class="terminal-line">
+          ARCHIVE <span>30 CASES</span>
+        </div>
+
+        <div class="signal">
+          <i></i>
+          <i></i>
+          <i></i>
+          <i></i>
+          <i></i>
+          <i></i>
+          <i></i>
+        </div>
+
+        <div class="mini-warning">
+          ⚠ Evidence can mislead. Verify before accusing.
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- TOPBAR -->
+  <header id="topbar" class="topbar hidden">
+
+    <button class="brand" data-action="dashboard">
+      <span class="brand-mark">W</span>
+      <span>WHO IS LYING?</span>
+    </button>
+
+    <div class="top-stats">
+      <span class="pill" id="rankPill">ROOKIE</span>
+      <span class="pill xp-pill" id="xpPill">0 XP</span>
+    </div>
+
+    <div class="top-actions">
+
+      <button
+        class="icon-btn"
+        title="Mute / unmute"
+        data-action="mute"
+        id="muteBtn">
+        🔊
+      </button>
+
+      <button
+        class="icon-btn"
+        title="Detective profile"
+        data-action="profile">
+        ◉
+      </button>
+
+      <button
+        class="icon-btn"
+        title="Settings"
+        data-action="settings">
+        ⚙
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <main id="main" class="hidden">
+
+    <!-- DASHBOARD -->
+    <section id="dashboard" class="screen">
+
+      <div class="page-head">
+
+        <div>
+          <div class="eyebrow">COMMAND CENTER</div>
+
+          <h2>Detective Dashboard</h2>
+
+          <p>
+            Choose your next move.
+            Your evidence is only as strong as your investigation.
+          </p>
+        </div>
+
+        <div class="level-card glass">
+
+          <span>LEVEL</span>
+
+          <b id="dashLevel">1</b>
+
+          <div class="xp-track">
+            <i id="dashXpBar"></i>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="dashboard-grid">
+
+        <div class="dash-main">
+
+          <div class="section-title">
+
+            <span>CASE FILES</span>
+
+            <button
+              class="text-btn"
+              data-action="cases">
+              VIEW ALL →
+            </button>
+
+          </div>
+
+          <div
+            id="featuredCases"
+            class="case-grid">
+          </div>
+
+        </div>
+
+
+        <aside class="dash-side">
+
+          <div class="glass stat-panel">
+
+            <div class="section-title">
+              <span>FIELD RECORD</span>
+            </div>
+
+            <div class="metric-grid">
+
+              <div>
+                <b id="statSolved">0</b>
+                <span>SOLVED</span>
+              </div>
+
+              <div>
+                <b id="statAccuracy">0%</b>
+                <span>ACCURACY</span>
+              </div>
+
+              <div>
+                <b id="statClues">0</b>
+                <span>CLUES</span>
+              </div>
+
+              <div>
+                <b id="statStreak">0</b>
+                <span>STREAK</span>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="glass mode-panel">
+
+            <div class="section-title">
+              <span>MODES</span>
+            </div>
+
+            <button class="mode-btn" data-action="daily">
+              <b>DAILY CASE</b>
+              <span>One case. One shot at a streak.</span>
+            </button>
+
+            <button class="mode-btn" data-action="quick">
+              <b>QUICK CASE</b>
+              <span>Random case, fast investigation.</span>
+            </button>
+
+            <button class="mode-btn" data-action="endless">
+              <b>ENDLESS</b>
+              <span>Keep investigating.</span>
+            </button>
+
+            <button class="mode-btn" data-action="botmode">
+              <b>BOT MODE</b>
+              <span>Compete against detectives.</span>
+            </button>
+
+          </div>
+
+        </aside>
+
+      </div>
+
+    </section>
+
+
+    <!-- CASE ARCHIVE -->
+    <section id="cases" class="screen">
+
+      <div class="page-head">
+
+        <div>
+
+          <div class="eyebrow">CASE ARCHIVE</div>
+
+          <h2>Select Investigation</h2>
+
+          <p>
+            Thirty original cases across science, history,
+            animals, space, technology and everyday myths.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="filter-row">
+
+        <button class="filter active" data-filter="ALL">
+          ALL
+        </button>
+
+        <button class="filter" data-filter="EASY">
+          EASY
+        </button>
+
+        <button class="filter" data-filter="MEDIUM">
+          MEDIUM
+        </button>
+
+        <button class="filter" data-filter="HARD">
+          HARD
+        </button>
+
+        <button class="filter" data-filter="EXPERT">
+          EXPERT
+        </button>
+
+      </div>
+
+
+      <div
+        id="allCases"
+        class="case-grid large">
+      </div>
+
+    </section>
+
+
+    <!-- INVESTIGATION -->
+    <section id="investigation" class="screen">
+      <div id="investigationApp"></div>
+    </section>
+
+
+    <!-- ACHIEVEMENTS -->
+    <section id="achievements" class="screen">
+
+      <div class="page-head">
+
+        <div>
+
+          <div class="eyebrow">
+            RECOGNITION
+          </div>
+
+          <h2>Achievements</h2>
+
+          <p>
+            Milestones earned through careful investigation.
+          </p>
+
+        </div>
+
+      </div>
+
+      <div
+        id="achievementGrid"
+        class="achievement-grid">
+      </div>
+
+    </section>
+
+
+    <!-- PROFILE -->
+    <section id="profile" class="screen">
+
+      <div class="page-head">
+
+        <div>
+
+          <div class="eyebrow">
+            IDENTITY FILE
+          </div>
+
+          <h2>Detective Profile</h2>
+
+          <p>
+            Your field record, progression and investigation statistics.
+          </p>
+
+        </div>
+
+      </div>
+
+      <div id="profileContent"></div>
+
+    </section>
+
+
+    <!-- SETTINGS -->
+    <section id="settings" class="screen">
+
+      <div class="page-head">
+
+        <div>
+
+          <div class="eyebrow">
+            SYSTEM CONFIG
+          </div>
+
+          <h2>Settings</h2>
+
+          <p>
+            Local browser settings. No account or server required.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="settings-grid">
+
+        <div class="glass setting-card">
+
+          <h3>Detective name</h3>
+
+          <p>
+            This name appears on your case reports.
+          </p>
+
+          <div class="inline-form">
+
+            <input
+              id="playerNameInput"
+              maxlength="24"
+              placeholder="Detective">
+
+            <button
+              class="btn btn-primary"
+              data-action="save-name">
+              SAVE
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="glass setting-card">
+
+          <h3>Audio</h3>
+
+          <p>
+            Generated browser sound effects.
+          </p>
+
+          <button
+            class="btn btn-ghost"
+            data-action="mute"
+            id="settingsMute">
+            Sound: ON
+          </button>
+
+        </div>
+
+
+        <div class="glass setting-card danger">
+
+          <h3>Reset local progress</h3>
+
+          <p>
+            This permanently clears your browser save.
+          </p>
+
+          <button
+            class="btn btn-danger"
+            data-action="reset">
+            RESET PROGRESS
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- HELP -->
+    <section id="help" class="screen">
+
+      <div class="page-head">
+
+        <div>
+
+          <div class="eyebrow">
+            FIELD MANUAL
+          </div>
+
+          <h2>How To Play</h2>
+
+          <p>
+            Think like a detective, not a guesser.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="help-grid">
+
+        <div class="glass help-card">
+          <span>01</span>
+          <h3>Read all five claims</h3>
+          <p>
+            Exactly one statement is false.
+            The other four are true.
+          </p>
+        </div>
+
+        <div class="glass help-card">
+          <span>02</span>
+          <h3>Investigate selectively</h3>
+          <p>
+            Talk to bots, search TruthFinder,
+            inspect files and solve mini-games.
+            Actions are limited.
+          </p>
+        </div>
+
+        <div class="glass help-card">
+          <span>03</span>
+          <h3>Compare evidence</h3>
+          <p>
+            Some bots are reliable,
+            some repeat myths.
+            A clue is not automatically proof.
+          </p>
+        </div>
+
+        <div class="glass help-card">
+          <span>04</span>
+          <h3>Accuse carefully</h3>
+          <p>
+            Your score rewards accuracy,
+            speed and efficient investigation.
+          </p>
+        </div>
+
+        <div class="glass help-card">
+          <span>05</span>
+          <h3>Build your record</h3>
+          <p>
+            Earn XP, ranks and achievements.
+            Progress is saved in LocalStorage.
+          </p>
+        </div>
+
+        <div class="glass help-card">
+          <span>06</span>
+          <h3>Modes</h3>
+          <p>
+            Story, Quick, Daily, Endless and Bot Mode
+            all use the same core investigation system.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+<div id="modalRoot"></div>
+
+
+<script src="js/storage.js"></script>
+<script src="js/cases.js"></script>
+<script src="js/bots.js"></script>
+<script src="js/evidence.js"></script>
+<script src="js/search.js"></script>
+<script src="js/minigames.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/ui.js"></script>
+
+<script src="js/app.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
